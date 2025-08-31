@@ -1,0 +1,7 @@
+{
+  "name": "BetterSapCollector",
+  "version_number": "1.0.2",
+  "description": "Enhanced Sap Collectors and Ancient Roots with configurable speeds, capacities, and hover text. Features ServerSync for multiplayer compatibility.",
+  "website_url": "https://github.com/xtav1m/BetterSapCollector",
+  "dependencies": ["denikson-BepInExPack_Valheim-5.4.2333"]
+}
