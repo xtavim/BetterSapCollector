@@ -1,5 +1,6 @@
 using BepInEx;
 using BepInEx.Configuration;
+using BepInEx.Logging;
 using HarmonyLib;
 using ServerSync;
 
@@ -8,6 +9,9 @@ namespace BetterSapCollector
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     public class Plugin : BaseUnityPlugin
     {
+        public new static readonly ManualLogSource Logger =
+            BepInEx.Logging.Logger.CreateLogSource(PluginInfo.PLUGIN_NAME);
+        
         private static ConfigSync configSync = new(PluginInfo.PLUGIN_GUID)
         {
             DisplayName = PluginInfo.PLUGIN_NAME,
@@ -15,12 +19,10 @@ namespace BetterSapCollector
             MinimumRequiredVersion = PluginInfo.PLUGIN_VERSION
         };
 
-                public static ConfigEntry<bool> enableSapCollector;
-        public static ConfigEntry<int> sapCollectorSpeed;
+        public static ConfigEntry<int> sapCollectorInterval;
         public static ConfigEntry<int> sapCollectorCapacity;
         public static ConfigEntry<bool> enableSapCollectorHover;
         
-        public static ConfigEntry<bool> enableAncientRoot;
         public static ConfigEntry<int> ancientRootRegenerationSpeed;
         public static ConfigEntry<int> ancientRootCapacity;
         public static ConfigEntry<bool> enableAncientRootHover;
@@ -53,18 +55,16 @@ namespace BetterSapCollector
                     "If enabled, the configuration is locked and can be changed by server admins only."));
             configSync.AddLockingConfigEntry(serverConfigLocked);
 
-            enableSapCollector = ConfigSync("Sap Collector", "Enable Sap Collector", true,
-                new ConfigDescription("Enable Sap Collector tweaks."));
+            enableSapCollectorHover = ConfigSync("Sap Collector", "Sap Collector Hover Text", true,
+                new ConfigDescription("If enabled, a hover text will be displayed when hovering over a Sap Collector containing the current level, capacity, and time remaining."));
 
-            enableSapCollectorHover = ConfigSync("Sap Collector", "Enable Sap Collector Hover Text", true,
-                new ConfigDescription("Enable enhanced hover text for Sap Collectors."));
-
-            sapCollectorSpeed = ConfigSync("Sap Collector",
-                "Sap Collector Speed",
+            sapCollectorInterval = ConfigSync(
+                "Sap Collector",
+                "Sap Collector Interval",
                 10,
                 new ConfigDescription(
-                    "The time it takes for a Sap Collector to process 1 Sap. Vanilla is 10 seconds. (less = faster)",
-                    new AcceptableValueRange<int>(1, 20)
+                    "Time (in seconds) required for a Sap Collector to produce 1 Sap. Vanilla is 10. Lower = faster.",
+                    new AcceptableValueRange<int>(1, 60)
                 )
             );
 
@@ -76,10 +76,7 @@ namespace BetterSapCollector
                     new AcceptableValueRange<int>(1, 40)
                 ));
 
-            enableAncientRoot = ConfigSync("Ancient Root", "Enable Ancient Root", true,
-                new ConfigDescription("Enable Ancient Root tweaks."));
-
-            enableAncientRootHover = ConfigSync("Ancient Root", "Enable Ancient Root Hover Text", true,
+            enableAncientRootHover = ConfigSync("Ancient Root", "Ancient Root Hover Text", true,
                 new ConfigDescription("Enable enhanced hover text for Ancient Roots."));
 
             ancientRootRegenerationSpeed = ConfigSync("Ancient Root",
@@ -110,7 +107,7 @@ namespace BetterSapCollector
 
         private static void InitializeEvents()
         {
-            sapCollectorSpeed.SettingChanged += (_, _) => UpdateAllSapCollectors();
+            sapCollectorInterval.SettingChanged += (_, _) => UpdateAllSapCollectors();
             sapCollectorCapacity.SettingChanged += (_, _) => UpdateAllSapCollectors();
 
             ancientRootRegenerationSpeed.SettingChanged += (_, _) => UpdateAllAncientRoots();
@@ -121,7 +118,7 @@ namespace BetterSapCollector
         {
             foreach (var collector in FindObjectsOfType<SapCollector>())
             {
-                collector.m_secPerUnit = sapCollectorSpeed.Value;
+                collector.m_secPerUnit = sapCollectorInterval.Value;
                 collector.m_maxLevel = sapCollectorCapacity.Value;
             }
         }
