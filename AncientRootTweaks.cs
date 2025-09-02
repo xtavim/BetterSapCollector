@@ -28,7 +28,7 @@ public static class AncientRootTweaks
             
             var level = __instance.GetLevel();
             var percentage = (level / __instance.m_maxLevel * 100).ToString("F0");
-            return __result + $"\n<color=orange>{percentage}%</color>";
+            return __result + $"\n<color=green>{percentage}%</color>";
         }
     }
 }

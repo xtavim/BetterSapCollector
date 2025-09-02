@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4] - 2025-01-3
+
+### Updated
+
+- **Ancient Root hover text color**
+- **Mod icon**
+
 ## [1.0.3] - 2025-01-3
 
 ### Fixed
