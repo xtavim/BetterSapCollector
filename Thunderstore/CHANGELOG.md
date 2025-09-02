@@ -1,31 +1,45 @@
 # Changelog
 
-## [1.0.4] - 2025-01-3
+## [1.0.5] - 2025-9-2
+
+### Added
+
+- **More color support**
+
+### Changed
+
+- **Configs for easier readability**
+
+### Removed
+
+- **Timer from sap collector**
+
+## [1.0.4] - 2025-9-2
 
 ### Updated
 
 - **Ancient Root hover text color**
 - **Mod icon**
 
-## [1.0.3] - 2025-01-3
+## [1.0.3] - 2025-8-31
 
 ### Fixed
 
 - **Fixed Mod Website**
 
-## [1.0.2] - 2025-01-3
+## [1.0.2] - 2025-8-31
 
 ### Fixed
 
 - **R2Modman integration fixed**
 
-## [1.0.1] - 2025-01-3
+## [1.0.1] - 2025-8-31
 
 ### Fixed
 
 - **README file changes**
 
-## [1.0.0] - 2025-01-31
+## [1.0.0] - 2025-8-31
 
 ### Added
 

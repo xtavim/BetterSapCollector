@@ -6,7 +6,7 @@ Enhanced Sap Collectors and Ancient Roots for Valheim with configurable speeds, 
 
 ### 🍯 Sap Collectors
 
-- **Configurable Speed**: Adjust how fast sap collectors process sap (1-20 seconds)
+- **Configurable Interval**: Adjust how fast sap collectors produce sap (1-60 seconds)
 - **Configurable Capacity**: Set inventory capacity (1-40 items)
 - **Enhanced Hover Text**: Shows current level, capacity, and time remaining
 - **Live Updates**: Changes apply immediately to existing collectors
@@ -28,7 +28,7 @@ Enhanced Sap Collectors and Ancient Roots for Valheim with configurable speeds, 
 
 - **Enable Sap Collector**: Main functionality toggle
 - **Enable Sap Collector Hover Text**: Enhanced hover text toggle
-- **Sap Collector Speed**: Processing time in seconds (less = faster)
+- **Sap Collector Interval**: Time in seconds to produce 1 sap (1-60 seconds, lower = faster)
 - **Sap Collector Capacity**: Maximum inventory items
 
 ### Ancient Root Settings
@@ -40,7 +40,7 @@ Enhanced Sap Collectors and Ancient Roots for Valheim with configurable speeds, 
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for version history.
+See [CHANGELOG.md](changelog) for version history.
 
 ## License
 
